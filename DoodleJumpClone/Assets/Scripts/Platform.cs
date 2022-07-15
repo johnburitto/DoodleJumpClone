@@ -1,4 +1,5 @@
 using UnityEngine;
+using Assets.Extentions;
 
 public class Platform : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class Platform : MonoBehaviour
     {
         if (collision.collider.gameObject.TryGetComponent(out Player player))
         {
-            if (player.transform.position.y - collision.otherCollider.transform.position.y > 0)
+            if (collision.JumpCondition(player))
             {
                 player.DoJump();
             }

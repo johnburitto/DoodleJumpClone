@@ -7,6 +7,11 @@ public class Game : MonoBehaviour
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private StartTiles[] _startTiles;
 
+    private void Awake()
+    {
+        UnityEngine.Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
+
     private void OnEnable()
     {
         _startScreen.PlayButtonClick += OnPlayButtonClick;

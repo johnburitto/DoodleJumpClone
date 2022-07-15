@@ -4,10 +4,10 @@ using UnityEngine.Events;
 public class Score : MonoBehaviour
 {
     [SerializeField] private Player _player;
+    [SerializeField ]private float scorePerUnit = 100;
 
     public static Score Instance;
     private float _score = 0;
-    private const float SCORE_SCALER = 100;
 
     public float ScoreAmount => _score;
 
@@ -25,9 +25,9 @@ public class Score : MonoBehaviour
 
     private void TryUpdateScore()
     {
-        if (_player.Height * SCORE_SCALER > _score)
+        if (_player.Height * scorePerUnit > _score)
         {
-            _score = _player.Height * SCORE_SCALER;
+            _score = _player.Height * scorePerUnit;
             ScoreChange?.Invoke();
         }
 

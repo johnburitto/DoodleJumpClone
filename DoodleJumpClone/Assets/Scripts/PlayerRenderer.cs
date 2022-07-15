@@ -32,6 +32,11 @@ public class PlayerRenderer : MonoBehaviour
 
     private void OnRotate(float direction)
     {
+        if (Mathf.Abs(direction) < 0.05f)
+        {
+            return;
+        }
+
         if (direction >= 0)
         {
             _spriteRenderer.flipX = false;
