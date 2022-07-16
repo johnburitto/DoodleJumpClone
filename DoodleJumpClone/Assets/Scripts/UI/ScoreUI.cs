@@ -4,7 +4,8 @@ using UnityEngine;
 public class ScoreUI : MonoBehaviour
 {
     [SerializeField] private Score _score;
-    [SerializeField] private TMP_Text _text;
+    [SerializeField] private TMP_Text _currentScore;
+    [SerializeField] private TMP_Text _hightScore;
 
     private void OnEnable()
     {
@@ -18,6 +19,7 @@ public class ScoreUI : MonoBehaviour
 
     private void OnScoreChange()
     {
-        _text.text = Mathf.Round(_score.ScoreAmount).ToString();
+        _currentScore.text = Mathf.Round(_score.CurrentScore).ToString();
+        _hightScore.text = Mathf.Round(_score.HightScore).ToString();
     }
 }
