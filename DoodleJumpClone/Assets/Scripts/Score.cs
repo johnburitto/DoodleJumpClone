@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
@@ -69,7 +70,18 @@ public class Score : MonoBehaviour
     {
         StreamReader sr = new StreamReader(_filePath);
 
-        _hightScore = float.Parse(sr.ReadLine());
+        try
+        {
+            _hightScore = float.Parse(sr.ReadLine());
+        }
+        catch (Exception e)
+        {
+#if UNITY_EDITOR
+            Debug.Log(e);
+#endif
+            _hightScore = 0;
+        }
+
         ScoreChange?.Invoke();
         sr.Close();
     }
