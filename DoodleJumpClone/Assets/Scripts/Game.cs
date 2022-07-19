@@ -42,7 +42,7 @@ public class Game : MonoBehaviour
         _player.ResetPlayer();
         _spawner.ResetSpawner();
         Score.Instance.ResetScore();
-        Score.Instance.LoadScore();
+        Score.Instance.LoadHightScore();
 
         foreach (var tile in _startTiles)
         {
@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
 
     private void OnGameOver()
     {
-        Score.Instance.SaveScore();
+        Score.Instance.SaveHightScore();
         Time.timeScale = 0;
         _startScreen.Open();
     }

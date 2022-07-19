@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +10,6 @@ public class Score : MonoBehaviour
     public static Score Instance;
     private float _currentScore = 0;
     private float _hightScore = 0;
-    private string _filePath;
 
     public float CurrentScore => _currentScore;
     public float HightScore => _hightScore;
@@ -21,12 +19,7 @@ public class Score : MonoBehaviour
     private void Start()
     {
         Instance = this;
-#if UNITY_ANDROID && !UNITY_EDITOR
-        _filePath = Path.Combine(Application.persistentDataPath, "hightScore.txt");
-#else
-        _filePath = Path.Combine(Application.dataPath, "hightScore.txt");
-#endif
-        LoadScore();
+        LoadHightScore();
     }
 
     void Update()
@@ -50,39 +43,17 @@ public class Score : MonoBehaviour
         ScoreChange?.Invoke();
     }
 
-    public void SaveScore()
+    public void SaveHightScore()
     {
-        StreamWriter sw = new StreamWriter(_filePath);
-
         if (_currentScore > _hightScore)
         {
-            sw.WriteLine(_currentScore);
+            PlayerPrefs.SetFloat("HightScore", _currentScore);
         }
-        else
-        {
-            sw.WriteLine(_hightScore);
-        }
-
-        sw.Close();
     }
 
-    public void LoadScore()
+    public void LoadHightScore()
     {
-        StreamReader sr = new StreamReader(_filePath);
-
-        try
-        {
-            _hightScore = float.Parse(sr.ReadLine());
-        }
-        catch (Exception e)
-        {
-#if UNITY_EDITOR
-            Debug.Log(e);
-#endif
-            _hightScore = 0;
-        }
-
+        _hightScore = PlayerPrefs.GetFloat("HightScore");
         ScoreChange?.Invoke();
-        sr.Close();
     }
 }
